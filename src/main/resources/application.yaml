@@ -1,0 +1,33 @@
+spring:
+  profiles: local
+
+  datasource:
+    platform: h2
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    database-platform: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+server:
+  port: 9090
+
+security:
+  jwt:
+    config:
+      secretKey: local_government_info
+      expireInMilliseconds: 1800000
+
+logging:
+  level:
+    ROOT: debug
+
+---
