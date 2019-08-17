@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @since 2019-08-17
  */
 @Repository
-public class SupportRepository {
+public class SupportInfoRepository {
 }

@@ -1,12 +1,7 @@
 package com.sung.ecology.dto;
 
-import com.sung.ecology.entity.SupportEntity;
+import com.sung.ecology.entity.SupportInfo;
 import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 /*
  *
@@ -14,7 +9,7 @@ import javax.persistence.GenerationType;
  * @since 2019-08-17
  */
 @Getter
-public class SupportDto {
+public class SupportInfoDto {
 
     private long id;
     private String localGovernmentCode;
@@ -26,23 +21,23 @@ public class SupportDto {
     private String management;
     private String dealer;
 
-    public SupportDto(){
+    public SupportInfoDto(){
     }
 
-    public SupportDto(SupportEntity supportEntity){
-        this.id = supportEntity.getId();
-        this.localGovernmentCode = supportEntity.getLocalGovernmentCode();
-        this.supportTarget = supportEntity.getSupportTarget();
-        this.usage = supportEntity.getUsage();
-        this.supportLimit = supportEntity.getSupportLimit();
-        this.interestSubsidy = supportEntity.getInterestSubsidy();
-        this.institutions = supportEntity.getInstitutions();
-        this.management = supportEntity.getManagement();
-        this.dealer = supportEntity.getDealer();
+    public SupportInfoDto(SupportInfo supportInfo){
+        this.id = supportInfo.getId();
+        this.localGovernmentCode = supportInfo.getLocalGovernmentCode();
+        this.supportTarget = supportInfo.getSupportTarget();
+        this.usage = supportInfo.getUsage();
+        this.supportLimit = supportInfo.getSupportLimit();
+        this.interestSubsidy = supportInfo.getInterestSubsidy();
+        this.institutions = supportInfo.getInstitutions();
+        this.management = supportInfo.getManagement();
+        this.dealer = supportInfo.getDealer();
     }
 
-    SupportEntity toEntity(){
-        SupportEntity supportEntity = SupportEntity.builder()
+    SupportInfo toEntity(){
+        SupportInfo supportInfo = SupportInfo.builder()
                 .localGovernmentCode(localGovernmentCode)
                 .supportTarget(supportTarget)
                 .usage(usage)
@@ -53,6 +48,6 @@ public class SupportDto {
                 .dealer(dealer)
                 .build();
 
-        return supportEntity;
+        return supportInfo;
     }
 }

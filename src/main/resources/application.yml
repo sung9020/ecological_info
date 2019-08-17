@@ -1,0 +1,31 @@
+spring:
+  profiles: local
+
+  datasource:
+    sqlScriptEncoding: UTF-8
+    data: classpath:bank.sql
+    platform: h2
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    database-platform: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+server:
+  port: 9090
+
+security:
+  jwt:
+    config:
+      secretKey: ecological_info
+      expireInMilliseconds: 1800000
+
+---

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @Entity
-public class SupportEntity {
+public class SupportInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
