@@ -21,7 +21,7 @@ public class SupportInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column
+    @Column(unique = true, nullable = false)
     private String regionCode;
 
     @Column

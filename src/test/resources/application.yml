@@ -1,5 +1,5 @@
 spring:
-  profiles: local
+  profiles: test
 
   datasource:
     platform: h2
@@ -23,8 +23,8 @@ server:
 security:
   jwt:
     config:
-      secretKey: local_government_info
-      expireInMilliseconds: 1800000
+      signature-key: local_government_info
+      expire-in-milliseconds: 1800000
 
 logging:
   level:

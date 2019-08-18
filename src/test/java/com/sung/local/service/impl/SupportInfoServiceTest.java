@@ -37,7 +37,6 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles(profiles = "test")
-
 public class SupportInfoServiceTest {
 
     ModelMapper modelMapper;

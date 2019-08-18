@@ -33,7 +33,6 @@ import static org.junit.Assert.*;
 @TestPropertySource("classpath:application-test.yml")
 @ActiveProfiles(profiles = "test")
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-
 public class LocalGovernmentServiceTest {
 
 

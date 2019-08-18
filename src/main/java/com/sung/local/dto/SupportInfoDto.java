@@ -16,7 +16,9 @@ import javax.persistence.Column;
 @Setter
 public class SupportInfoDto {
 
+    @JsonIgnore
     private long id;
+
     private String region;
     private String supportTarget;
     private String usage;

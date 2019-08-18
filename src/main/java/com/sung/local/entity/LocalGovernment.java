@@ -17,9 +17,9 @@ import javax.persistence.Id;
 public class LocalGovernment {
 
     @Id
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String region;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String regionCode;
 }
