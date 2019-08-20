@@ -5,8 +5,6 @@ import com.sung.local.entity.SupportInfo;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-
 /*
  *
  * @author 123msn

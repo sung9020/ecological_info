@@ -1,6 +1,5 @@
 package com.sung.local.repository;
 
-import com.sung.local.entity.SupportInfo;
 import com.sung.local.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

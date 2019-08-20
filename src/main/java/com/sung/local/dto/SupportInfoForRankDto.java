@@ -1,7 +1,5 @@
 package com.sung.local.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sung.local.entity.SupportInfo;
 import lombok.Getter;
 import lombok.Setter;
 

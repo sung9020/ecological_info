@@ -3,17 +3,12 @@ package com.sung.local.service.impl;
 import com.sung.local.dto.LocalGovernmentDto;
 import com.sung.local.entity.LocalGovernment;
 import com.sung.local.enums.ErrorFormat;
-import com.sung.local.enums.FileFormat;
 import com.sung.local.repository.LocalGovernmentRepository;
 import com.sung.local.service.LocalGovernmentInterface;
-import com.sung.local.utils.FileUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

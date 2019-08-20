@@ -2,7 +2,6 @@ package com.sung.local.service;
 
 import com.sung.local.dto.RecommendReponseDto;
 import com.sung.local.dto.RecommendRequestDto;
-import com.sung.local.dto.ResponseDto;
 
 /*
  *

@@ -11,14 +11,12 @@ import com.sung.local.enums.Unit;
 import com.sung.local.repository.LocalGovernmentRepository;
 import com.sung.local.repository.SupportInfoRepository;
 import com.sung.local.utils.FileUtils;
-import jdk.nashorn.internal.ir.WhileNode;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,7 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /*
  *
@@ -64,7 +62,7 @@ public class RecommendServiceTest {
     }
 
     @Test
-    public void 금융지원_지자체_추천(){
+    public void 지자체_지원정보_추천(){
         SupportInfoDto result = new SupportInfoDto();
 
         List<LocalGovernmentDto> localGovernmentDtoList = localGovernmentRepository.findAll().stream()

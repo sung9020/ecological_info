@@ -1,12 +1,8 @@
 package com.sung.local.dto;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sung.local.entity.LocalGovernment;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
 
 /*
  *

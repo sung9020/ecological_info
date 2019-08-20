@@ -1,6 +1,5 @@
 package com.sung.local.security.Filter;
 
-import com.sung.local.security.Filter.JwtFilter;
 import com.sung.local.security.JwtProvider;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,11 +1,10 @@
 package com.sung.local.security.impl;
 
 import com.sung.local.dto.UserDto;
-import com.sung.local.entity.User;
 import com.sung.local.repository.UserRepository;
 import com.sung.local.security.JwtProvider;
 import org.hamcrest.Matchers;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityExistsException;
-
 import java.util.Optional;
 
 import static org.junit.Assert.assertThat;
@@ -51,6 +48,11 @@ public class SecurityServiceTest {
     @Autowired
     private JwtProvider jwtProvider;
 
+    @After
+    public void tearDown() {
+        userRepository.deleteAll();
+    }
+
     @Test
     public void 가입_테스트(){
         UserDto userDto = new UserDto();
@@ -61,7 +63,7 @@ public class SecurityServiceTest {
             userRepository.save(userDto.toEntity());
 
             Authentication authentication = authenticationManager.authenticate(
-                    new TestingAuthenticationToken(username, password));
+                    new UsernamePasswordAuthenticationToken(username, password));
             token = Optional.of(jwtProvider.createToken(authentication))
                     .orElseThrow(() -> new EntityExistsException(""));
         }else{
@@ -83,7 +85,7 @@ public class SecurityServiceTest {
         }
 
         Authentication authentication = authenticationManager.authenticate(
-                new TestingAuthenticationToken(username, password)
+                new UsernamePasswordAuthenticationToken(username, password)
         );
         String token = jwtProvider.createToken(authentication);
 

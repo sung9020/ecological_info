@@ -1,14 +1,10 @@
 package com.sung.local.dto;
 
-import com.sung.local.entity.SupportInfo;
 import com.sung.local.entity.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 /*
  *

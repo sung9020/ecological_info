@@ -61,7 +61,7 @@ public class SupportInfoServiceTest {
     }
 
     @Test
-    public void 지자체_지원정보_출력하기(){
+    public void 지자체_지원정보_전체출력하기(){
         List<SupportInfoDto> supportInfoDtoList = supportInfoRepository.findAll().stream()
                 .map(SupportInfoDto::new).collect(Collectors.toList());
 
@@ -69,7 +69,7 @@ public class SupportInfoServiceTest {
     }
 
     @Test
-    public void 지자체_지원정보_검색하기(){
+    public void 특정_지자체_지원정보_검색하기(){
         LocalGovernment localGovernment = localGovernmentRepository.findByRegion("강릉시");
 
         SupportInfo supportInfo = supportInfoRepository.findByRegionCode(localGovernment.getRegionCode());
