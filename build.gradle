@@ -8,6 +8,17 @@ group = 'com.sung'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.sung.local.LocalGovernmentSupportInfoApplication'
+	}
+	from {
+		configurations.compile.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor

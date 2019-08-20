@@ -28,6 +28,6 @@ security:
 
 logging:
   level:
-    ROOT: debug
+    ROOT: info
 
 ---

@@ -25,7 +25,7 @@ public class SupportInfoController {
     SupportInterface supportInterface;
 
     @PostMapping("")
-    @ApiOperation(value ="지자체 협약 지원정보 저장")
+    @ApiOperation(value ="지자체 협약 지원정보 추가(*중요)")
     public ResponseDto setSupportInfo() {
         ResponseDto response = supportInterface.setSupportInfo();
 
@@ -60,7 +60,7 @@ public class SupportInfoController {
         return response;
     }
 
-    @GetMapping("{pageCount}")
+    @GetMapping("/page/{pageCount}")
     @ApiOperation(value ="지원금액, 이차보전 순의 지자체 정보 검색")
     public RegionDto getRegionsByOrder(
             @ApiParam(required = true, name="pageCount", value = "조회 페이지 갯수", example = "10") @PathVariable("pageCount") int pageCount

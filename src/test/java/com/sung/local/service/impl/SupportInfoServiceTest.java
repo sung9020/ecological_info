@@ -136,6 +136,7 @@ public class SupportInfoServiceTest {
         assertThat(supportInfoForRankDto.getInstitutions(), Matchers.equalTo("안양상공회의소"));
     }
 
+
     private void setRate(SupportInfoForRankDto supportInfoForRankDto, SupportInfo supportInfo){
         String rateStr = supportInfo.getRate();
 
@@ -144,7 +145,7 @@ public class SupportInfoServiceTest {
             supportInfoForRankDto.setInterestSubsidyMin(Double.valueOf(rateArray[0].replaceAll("%", "")));
             supportInfoForRankDto.setInterestSubsidyMax(Double.valueOf(rateArray[1].replaceAll("%", "")));
             supportInfoForRankDto.setInterestSubsidyAvg(
-                    supportInfoForRankDto.getInterestSubsidyMin() + supportInfoForRankDto.getInterestSubsidyMax() / 2.0
+                    (supportInfoForRankDto.getInterestSubsidyMin() + supportInfoForRankDto.getInterestSubsidyMax()) / 2.0
             );
         }else{
             if(rateStr.contains("%")){
@@ -165,6 +166,7 @@ public class SupportInfoServiceTest {
                 String origin = supportLimitStr.split(unit.getUnit())[0];
                 if(origin.length() > 0){
                     result = Long.valueOf(origin) * unit.getWon();
+                    break;
                 }
             }
         }

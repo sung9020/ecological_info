@@ -2,6 +2,8 @@ package com.sung.local.dto;
 
 import com.sung.local.entity.SupportInfo;
 import com.sung.local.entity.User;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,11 @@ import org.springframework.stereotype.Service;
  */
 @Getter
 @Setter
+@ApiModel
 public class UserDto {
-
+    @ApiModelProperty(value = "username", example ="admin", position = 1)
     private String username;
-
+    @ApiModelProperty(value = "password", example ="1234", position = 2)
     private String password;
 
     public UserDto(){

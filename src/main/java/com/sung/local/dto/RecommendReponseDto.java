@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RecommendDto {
+public class RecommendReponseDto {
     private String region;
     private String usage;
     private String supportLimit;

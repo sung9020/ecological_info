@@ -1,22 +1,24 @@
 package com.sung.local.service.impl;
 
 import com.sung.local.dto.*;
-import com.sung.local.entity.LocalGovernment;
 import com.sung.local.entity.SupportInfo;
 import com.sung.local.enums.ErrorFormat;
 import com.sung.local.enums.FileFormat;
 import com.sung.local.enums.Unit;
+import com.sung.local.repository.LocalGovernmentRepository;
 import com.sung.local.repository.SupportInfoRepository;
 import com.sung.local.service.LocalGovernmentInterface;
 import com.sung.local.service.SupportInterface;
 import com.sung.local.utils.FileUtils;
-import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /*
@@ -29,6 +31,9 @@ public class SupportInfoService implements SupportInterface {
 
     @Autowired
     SupportInfoRepository supportInfoRepository;
+
+    @Autowired
+    LocalGovernmentRepository localGovernmentRepository;
 
     @Autowired
     LocalGovernmentInterface localGovernmentInterface;
@@ -52,6 +57,11 @@ public class SupportInfoService implements SupportInterface {
             for(int i = 1; i < rowSize; i++){
                 List<String> row = data.get(i);
                 String localGovernmentCode = "LGM" + String.format("%03d", i);
+
+                LocalGovernmentDto localGovernmentDto = new LocalGovernmentDto();
+                localGovernmentDto.setRegion(row.get(FileFormat.LOCAL_GOVERNMENT.getCol()));
+                localGovernmentDto.setRegionCode(localGovernmentCode);
+                localGovernmentRepository.save(localGovernmentDto.toEntity());
 
                 SupportInfoDto supportInfoDto = new SupportInfoDto();
                 supportInfoDto.setRegionCode(localGovernmentCode);
@@ -79,9 +89,18 @@ public class SupportInfoService implements SupportInterface {
         if(supportInfoList.size() < 1){
             throw new IllegalArgumentException(ErrorFormat.DATA_INPUT_ERROR.getMsg());
         }
+        List<LocalGovernmentDto> localGovernmentDtoList = localGovernmentInterface.getLocalGovernmentList();
 
         List<SupportInfoDto> supportInfoDtoList = supportInfoRepository.findAll().stream()
                 .map(SupportInfoDto::new).collect(Collectors.toList());
+
+        for(SupportInfoDto supportInfoDto : supportInfoDtoList){
+            for(LocalGovernmentDto localGovernmentDto : localGovernmentDtoList){
+                if(supportInfoDto.getRegionCode().equals(localGovernmentDto.getRegionCode())){
+                    supportInfoDto.setRegion(localGovernmentDto.getRegion());
+                }
+            }
+        }
 
         return supportInfoDtoList;
     }
@@ -98,6 +117,7 @@ public class SupportInfoService implements SupportInterface {
 
         SupportInfo supportInfo = supportInfoRepository.findByRegionCode(localGovernmentDto.getRegionCode());
         SupportInfoDto supportInfoDto = modelMapper.map(supportInfo, SupportInfoDto.class);
+        supportInfoDto.setRegion(localGovernmentDto.getRegion());
 
         return supportInfoDto;
     }
@@ -136,7 +156,6 @@ public class SupportInfoService implements SupportInterface {
             throw new IllegalArgumentException(ErrorFormat.DATA_INPUT_ERROR.getMsg());
         }
 
-        RegionDto regionDto = new RegionDto();
         List<SupportInfoForRankDto> supportInfoForRankDtoList = new ArrayList<>();
         for(SupportInfo supportInfo : supportInfoList){
             SupportInfoForRankDto supportInfoForRankDto = modelMapper.map(supportInfo, SupportInfoForRankDto.class);
@@ -145,14 +164,26 @@ public class SupportInfoService implements SupportInterface {
 
             supportInfoForRankDtoList.add(supportInfoForRankDto);
         }
-        regionDto.setRegions(
-                supportInfoForRankDtoList.stream()
+
+        List<String> regionCodes = supportInfoForRankDtoList.stream()
                 .sorted(Comparator.comparing(SupportInfoForRankDto::getLimitLong).reversed()
                         .thenComparing(SupportInfoForRankDto::getInterestSubsidyAvg))
                 .limit(pageCount)
-                .map(SupportInfoDto::getRegion)
-                .collect(Collectors.toList())
-        );
+                .map(SupportInfoDto::getRegionCode)
+                .collect(Collectors.toList());
+
+        List<LocalGovernmentDto> localGovernmentDtoList = localGovernmentInterface.getLocalGovernmentList();
+
+        List<String> regions = new ArrayList<>();
+        for(String regionCode : regionCodes){
+            for(LocalGovernmentDto localGovernmentDto : localGovernmentDtoList){
+                if(regionCode.equals(localGovernmentDto.getRegionCode())){
+                    regions.add(localGovernmentDto.getRegion());
+                }
+            }
+        }
+        RegionDto regionDto = new RegionDto();
+        regionDto.setRegions(regions);
 
         return regionDto;
     }
@@ -184,7 +215,7 @@ public class SupportInfoService implements SupportInterface {
         return institutionsDto;
     }
 
-    private void setRate(SupportInfoForRankDto supportInfoForRankDto, SupportInfo supportInfo){
+    public void setRate(SupportInfoForRankDto supportInfoForRankDto, SupportInfo supportInfo){
         String rateStr = supportInfo.getRate();
 
         if(rateStr.contains("~")){
@@ -192,7 +223,7 @@ public class SupportInfoService implements SupportInterface {
             supportInfoForRankDto.setInterestSubsidyMin(Double.valueOf(rateArray[0].replaceAll("%", "")));
             supportInfoForRankDto.setInterestSubsidyMax(Double.valueOf(rateArray[1].replaceAll("%", "")));
             supportInfoForRankDto.setInterestSubsidyAvg(
-                    supportInfoForRankDto.getInterestSubsidyMin() + supportInfoForRankDto.getInterestSubsidyMax() / 2.0
+                    (supportInfoForRankDto.getInterestSubsidyMin() + supportInfoForRankDto.getInterestSubsidyMax()) / 2.0
             );
         }else{
             if(rateStr.contains("%")){
@@ -204,7 +235,7 @@ public class SupportInfoService implements SupportInterface {
         }
     }
 
-    private void setSupportLimit(SupportInfoForRankDto supportInfoForRankDto, SupportInfo supportInfo){
+    public void setSupportLimit(SupportInfoForRankDto supportInfoForRankDto, SupportInfo supportInfo){
         String supportLimitStr = supportInfo.getSupportLimit().split(" 이내")[0];
         long result = 0L;
 
@@ -213,10 +244,13 @@ public class SupportInfoService implements SupportInterface {
                 String origin = supportLimitStr.split(unit.getUnit())[0];
                 if(origin.length() > 0){
                     result = Long.valueOf(origin) * unit.getWon();
+                    break;
                 }
             }
         }
 
         supportInfoForRankDto.setLimitLong(result);
     }
+
+
 }

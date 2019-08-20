@@ -1,6 +1,9 @@
 package com.sung.local.service.impl;
 
 import com.sung.local.dto.LocalGovernmentDto;
+import com.sung.local.dto.SupportInfoDto;
+import com.sung.local.entity.LocalGovernment;
+import com.sung.local.entity.SupportInfo;
 import com.sung.local.enums.FileFormat;
 import com.sung.local.repository.LocalGovernmentRepository;
 import com.sung.local.utils.FileUtils;
@@ -30,14 +33,40 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource("classpath:application-test.yml")
 @ActiveProfiles(profiles = "test")
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class LocalGovernmentServiceTest {
 
 
     @Autowired
     LocalGovernmentRepository localGovernmentRepository;
 
+    @Test
+    public void 지자체코드_조회(){
+        LocalGovernment localGovernment = localGovernmentRepository.findByRegion("강릉시");
+        assertThat(localGovernment.getRegionCode().length(), Matchers.greaterThan(0));
+    }
 
+    @Test
+    public void 지자체_리스트_조회(){
+        List<LocalGovernment> localGovernmentList = localGovernmentRepository.findAll();
+        assertThat(localGovernmentList.size(), Matchers.greaterThan(0));
+    }
+
+
+    private void setCsvData(){
+        File file = new File("local_government_support_info.csv");
+        List<List<String>> data = FileUtils.readCsv(file);
+
+        int rowSize = data.size();
+
+        for(int i = 1; i < rowSize; i++){
+            List<String> row = data.get(i);
+            String localGovernmentCode = "LGM" + String.format("%03d", i);
+
+            LocalGovernmentDto localGovernmentDto = new LocalGovernmentDto();
+            localGovernmentDto.setRegion(row.get(FileFormat.LOCAL_GOVERNMENT.getCol()));
+            localGovernmentDto.setRegionCode(localGovernmentCode);
+            localGovernmentRepository.save(localGovernmentDto.toEntity());
+        }
+    }
 }

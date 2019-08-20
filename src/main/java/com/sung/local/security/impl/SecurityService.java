@@ -42,11 +42,12 @@ public class SecurityService implements SecurityInterface {
     public TokenInfoDto signUp(UserDto userDto) {
         TokenInfoDto tokenInfoDto = new TokenInfoDto();
         if(!userRepository.existsByUsername(userDto.getUsername())){
-            userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            String password = userDto.getPassword();
+            userDto.setPassword(passwordEncoder.encode(password));
             userRepository.save(userDto.toEntity());
 
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
+                    new UsernamePasswordAuthenticationToken(userDto.getUsername(), password));
 
             tokenInfoDto.setUsername(userDto.getUsername());
             tokenInfoDto.setToken(
