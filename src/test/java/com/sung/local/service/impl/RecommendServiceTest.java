@@ -74,16 +74,16 @@ public class RecommendServiceTest {
         List<String> regionCodeList = localGovernmentDtoList.stream()
                 .map(LocalGovernmentDto::getRegionCode).collect(Collectors.toList());
 
+        // 기사에 나온 단어 중 지자체 이름이 포함되어있는지 찾는다.
         final List<String> INPUT_ARRAY = Arrays.asList(INPUT.split("\\s+"));
-
         String region = regionList.stream().filter(
                 r -> INPUT_ARRAY.stream().anyMatch(w -> isSubstring(r,w))).findFirst().orElseThrow(()
                 -> new IllegalArgumentException(ErrorFormat.NOT_FOUND_REGION_ERROR.getMsg()));
-
+        // 이차보전, 지원금액, 용도를 파싱한다.
         double rate = getRateByString(INPUT);
         long limit = getLimitLongByString(INPUT);
         Set<String> usageSet = getUsageByString(INPUT);
-
+        // 거리 점수에 따라 짧은 순대로 정렬한다.
         int[][] ranges =  getRanges(regionCodeList);
         setRangeRank(regionList, ranges, region);
 
@@ -195,9 +195,10 @@ public class RecommendServiceTest {
         return result;
     }
     // 가중치에 따라 지역 정렬하기
-    private void setRangeRank(List<String> regionList, int[][] ranges, String regionCode){
+    private void setRangeRank(List<String> regionList, int[][] ranges, String region){
         List<String> copyList = new ArrayList<>(regionList);
-        int index = copyList.indexOf(regionCode);
+        int index = copyList.indexOf(region);
+        // 거리가 짧은 순대로 앞순위가 된다.
         regionList.sort(Comparator.comparing(str -> ranges[index][copyList.indexOf(str)]));
     }
 
