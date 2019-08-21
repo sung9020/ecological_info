@@ -9,7 +9,7 @@ H2 Database
 
 --- 
 
-- 분석 데이터  
+- 참조 데이터  
 파일내용: 지자체 협약 지원 정보 보기  
 파일명 : local_government_support_info.csv  
 파일위치 : jar 빌드 파일(local-0.0.1-SNAPSHOT.jar)와 같은 위치에 csv 파일을 저장 해놓으면 분석이 가능하다.   
