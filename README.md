@@ -83,7 +83,8 @@ H2 Database
 -> 이미 회원 가입을 하였으면, `localhost:9090/api/auth/signIn`에 username, password를 넣어서 호출하면 토큰이 발급된다.  
 -> 회원 가입 이나 로그인 후에 Authorization 헤더에 Bearer <토큰> 형태로 넣어서 API를 호출하면 된다.  
 
-* 회원 가입 및 로그인 API 외의 API는 반드시 지자체 협약 지원정보 추가(*중요) API를 선행 호출해야 사용가능하다. 
+**회원 가입 및 로그인 API 외의 API는 반드시 지자체 협약 지원정보 추가(*중요) API를 선행 호출해야 사용가능하다.
+
 ---  
 
 - 문제 해결 전략   
