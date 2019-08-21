@@ -6,9 +6,11 @@ import com.sung.local.enums.FileFormat;
 import com.sung.local.repository.LocalGovernmentRepository;
 import com.sung.local.utils.FileUtils;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,13 +26,18 @@ import static org.junit.Assert.assertThat;
  * @since 2019-08-17
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 @ActiveProfiles(profiles = "test")
 public class LocalGovernmentServiceTest {
 
 
     @Autowired
     LocalGovernmentRepository localGovernmentRepository;
+
+    @Before
+    public void setUp(){
+        setCsvData();
+    }
 
     @Test
     public void 지자체코드_조회(){

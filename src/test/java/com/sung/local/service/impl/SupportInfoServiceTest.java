@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -35,7 +36,7 @@ import static org.junit.Assert.assertThat;
  * @since 2019-08-17
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 @ActiveProfiles(profiles = "test")
 public class SupportInfoServiceTest {
 
@@ -52,12 +53,6 @@ public class SupportInfoServiceTest {
     public void setUp() throws Exception {
         setCsvData();
         modelMapper = new ModelMapper();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        localGovernmentRepository.deleteAll();
-        supportInfoRepository.deleteAll();
     }
 
     @Test

@@ -23,7 +23,7 @@ public class FileUtils {
         List<List<String>> Data = new ArrayList<>();
         try{
 
-            Files.lines(file.toPath(), Charset.forName("euc-kr")).forEach(line ->{
+            Files.lines(file.toPath(), Charset.forName("utf-8")).forEach(line ->{
                 String[] rows = line.split( ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
                 Data.add(
