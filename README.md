@@ -70,9 +70,10 @@ H2 Database
 - Swagger 테스트 시에 주의점  
 -> 회원가입, 로그인 API 외에는 토큰 인증을 거쳐야 API 호출이 가능하다.  
 -> Authorize 버튼을 누른 후에 Bearer <토큰> 을 넣어주면 API 호출이 가능해진다.  
+
 <div>
-<img width="675" alt="스크린샷 2019-08-21 오후 12 52 49" src="https://user-images.githubusercontent.com/38482334/63401546-9fbe1200-c412-11e9-832a-a88e1fce95a3.png">
-<img width="991" alt="스크린샷 2019-08-21 오후 12 52 16" src="https://user-images.githubusercontent.com/38482334/63401526-8917bb00-c412-11e9-9f18-2d710a5c0269.png">
+<img width="675" alt="스크린샷 2019-08-21 오후 12 52 49" src="https://user-images.githubusercontent.com/38482334/63401546-9fbe1200-c412-11e9-832a-a88e1fce95a3.png">
+<img width="991" alt="스크린샷 2019-08-21 오후 12 52 16" src="https://user-images.githubusercontent.com/38482334/63401526-8917bb00-c412-11e9-9f18-2d710a5c0269.png">
 <div>
 ---  
 
