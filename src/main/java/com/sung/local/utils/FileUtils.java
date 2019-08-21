@@ -22,7 +22,6 @@ public class FileUtils {
     public static List<List<String>> readCsv(File file){
         List<List<String>> Data = new ArrayList<>();
         try{
-
             Files.lines(file.toPath(), Charset.forName("utf-8")).forEach(line ->{
                 String[] rows = line.split( ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
@@ -33,8 +32,6 @@ public class FileUtils {
                         }).collect(Collectors.toList())
                 );
             });
-
-
         }catch (IOException e){
             e.printStackTrace();
             log.error("# 파일 읽기 에러");
