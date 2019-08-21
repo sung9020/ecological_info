@@ -78,6 +78,7 @@ public class RecommendService implements RecommendInterface {
         setRangeRank(regionList, ranges, region);
 
         for(String tempRegion : regionList){
+            // 현재 지역과 가까운 지역을 추천해보자.
             if(!region.equals(tempRegion) || !region.contains(tempRegion)){
                 LocalGovernment localGovernment = localGovernmentRepository.findByRegion(tempRegion);
 

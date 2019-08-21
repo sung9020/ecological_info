@@ -2,6 +2,8 @@ package com.sung.local;
 
 import com.sung.local.dto.LocalGovernmentDto;
 import com.sung.local.dto.SupportInfoDto;
+import com.sung.local.entity.LocalGovernment;
+import com.sung.local.entity.SupportInfo;
 import com.sung.local.enums.FileFormat;
 import com.sung.local.repository.LocalGovernmentRepository;
 import com.sung.local.repository.SupportInfoRepository;
@@ -60,8 +62,10 @@ public class LocalGovernmentSupportInfoApplicationTests {
 			localGovernmentRepository.save(localGovernmentDto.toEntity());
 		}
 
-		assertThat(data, Matchers.notNullValue());
-		assertThat(data.size(), Matchers.equalTo(99));
+		List<LocalGovernment> localGovernmentList = localGovernmentRepository.findAll();
+
+		assertThat(localGovernmentList, Matchers.notNullValue());
+		assertThat(localGovernmentList.size(), Matchers.equalTo(98));
 	}
 
 	@Test
@@ -87,6 +91,9 @@ public class LocalGovernmentSupportInfoApplicationTests {
 
 			supportInfoRepository.save(supportInfoDto.toEntity());
 		}
+		List<SupportInfo> supportInfoList = supportInfoRepository.findAll();
+		assertThat(supportInfoList, Matchers.notNullValue());
+		assertThat(supportInfoList.size(), Matchers.equalTo(98));
 	}
 
 	@Test
