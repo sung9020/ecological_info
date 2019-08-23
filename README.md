@@ -46,7 +46,7 @@ H2 Database
 - 빌드 방법  
 1. gradle 설치  
 2. 프로젝트 루트 접근  
-3. `gradle build` 명령어 실행  
+3. `gradle build` 명령어 실행  (그래들 설치 없이 프로젝트 루트에서 gradlew build, gradlew.bat build 도 가능) 
 4. 프로젝트 루트의 `build\libs` 위치에 jar 파일 생성 확인  
 
 ---  
