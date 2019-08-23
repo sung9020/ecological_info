@@ -52,7 +52,7 @@ H2 Database
 ---  
 
 - 구동 방법  
--> cmd나 쉘에서 아래 명령어를 입력  
+-> cmd나 리눅스 쉘에서 아래 명령어를 입력  
 -> `java -jar -Dspring.profiles.active=local local-0.0.1-SNAPSHOT.jar`(jar 파일 경로)  
 
 ---  
