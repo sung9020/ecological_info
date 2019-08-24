@@ -46,13 +46,13 @@ H2 Database
 - 빌드 방법  
 1. gradle 설치  
 2. 프로젝트 루트 접근  
-3. `gradle build` 명령어 실행  
+3. `gradle build` 명령어 실행  (그래들 설치 없이 OS에 따라 프로젝트 루트에서 gradlew build, gradlew.bat build 도 가능) 
 4. 프로젝트 루트의 `build\libs` 위치에 jar 파일 생성 확인  
 
 ---  
 
 - 구동 방법  
--> cmd나 쉘에서 아래 명령어를 입력  
+-> cmd나 리눅스 쉘에서 아래 명령어를 입력  
 -> `java -jar -Dspring.profiles.active=local local-0.0.1-SNAPSHOT.jar`(jar 파일 경로)  
 
 ---  
