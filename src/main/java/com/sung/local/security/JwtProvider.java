@@ -55,7 +55,6 @@ public class JwtProvider {
 
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + expireInMilliseconds);
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(authentication.getName())
@@ -70,7 +69,6 @@ public class JwtProvider {
         Claims claims = Jwts.parser()
                 .setSigningKey(signatureKey)
                 .parseClaimsJws(token)
-                .getBody();
 
         return claims;
     }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public ModelMapper setModelMapper(){
+    public ModelMapper getModelMapper(){
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper;
     }

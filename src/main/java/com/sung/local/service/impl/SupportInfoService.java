@@ -157,6 +157,7 @@ public class SupportInfoService implements SupportInterface {
         }
 
         List<SupportInfoForRankDto> supportInfoForRankDtoList = new ArrayList<>();
+
         for(SupportInfo supportInfo : supportInfoList){
             SupportInfoForRankDto supportInfoForRankDto = modelMapper.map(supportInfo, SupportInfoForRankDto.class);
             setSupportLimit(supportInfoForRankDto, supportInfo);
