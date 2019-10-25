@@ -69,6 +69,7 @@ public class JwtProvider {
         Claims claims = Jwts.parser()
                 .setSigningKey(signatureKey)
                 .parseClaimsJws(token)
+                .getBody();
 
         return claims;
     }

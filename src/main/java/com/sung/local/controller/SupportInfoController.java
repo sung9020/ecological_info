@@ -8,6 +8,9 @@ import com.sung.local.service.SupportInterface;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,7 +43,9 @@ public class SupportInfoController {
         return supportInfoDtoList;
     }
 
+
     @GetMapping("{region}")
+    @Cacheable(value = "region", key = "#region")
     @ApiOperation(value ="특정 지자체 협약지원정보 검색")
     public SupportInfoDto getSupportInfo(
             @ApiParam(required = true, name="region", value = "지자체 이름", example = "강릉시") @PathVariable("region") String region
@@ -51,6 +56,7 @@ public class SupportInfoController {
     }
 
     @PutMapping("")
+    @CacheEvict(value = "region", allEntries = true)
     @ApiOperation(value ="지자체 협약 지원정보 수정")
     public ResponseDto changeSupportInfo(
             @RequestBody SupportInfoDto supportInfoDto

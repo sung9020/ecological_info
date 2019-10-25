@@ -28,6 +28,5 @@ security:
 
 logging:
   level:
-    ROOT: info
-
+    ROOT: trace
 ---
